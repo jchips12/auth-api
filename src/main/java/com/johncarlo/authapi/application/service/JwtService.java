@@ -1,8 +1,9 @@
-package com.johncarlo.authapi.application;
+package com.johncarlo.authapi.application.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,12 @@ import java.util.function.Function;
 public class JwtService {
 
     private static final SecretKey SECRET = Keys.hmacShaKeyFor(Jwts.SIG.HS256.key().build().getEncoded());
+
+    private final long JWT_TOKEN_VALIDITY;
+
+    public JwtService(@Value("${jwt.validity}") long jwtTokenValidity) {
+        this.JWT_TOKEN_VALIDITY = jwtTokenValidity;
+    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -60,7 +67,7 @@ public class JwtService {
                 .claims(claims)
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() * 60))
+                .expiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
                 .signWith(SECRET).compact();
     }
 

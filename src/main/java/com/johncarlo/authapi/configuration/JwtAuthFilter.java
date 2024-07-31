@@ -1,6 +1,6 @@
 package com.johncarlo.authapi.configuration;
 
-import com.johncarlo.authapi.application.JwtService;
+import com.johncarlo.authapi.application.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

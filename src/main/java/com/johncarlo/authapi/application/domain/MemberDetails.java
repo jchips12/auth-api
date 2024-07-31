@@ -1,5 +1,6 @@
-package com.johncarlo.authapi.application;
+package com.johncarlo.authapi.application.domain;
 
+import com.johncarlo.authapi.application.entity.MemberInfo;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,17 +10,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
-public class MemberUserDetails extends UserInfo implements UserDetails {
+public class MemberDetails implements UserDetails {
 
     private final String username;
     private final String password;
     private final Set<GrantedAuthority> authorities;
 
-    public MemberUserDetails(UserInfo userInfo) {
-        username = userInfo.getUsername();
-        password = userInfo.getPassword();
-        authorities = userInfo
-                .getUserRoles()
+    public MemberDetails(MemberInfo memberInfo) {
+        username = memberInfo.getUsername();
+        password = memberInfo.getPassword();
+        authorities = memberInfo
+                .getMemberRoles()
                 .stream()
                 .map((roles) -> new SimpleGrantedAuthority(roles.getName()))
                 .collect(Collectors.toSet());

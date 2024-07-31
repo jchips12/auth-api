@@ -1,6 +1,8 @@
-package com.johncarlo.authapi.application;
+package com.johncarlo.authapi.application.service;
 
-import com.johncarlo.authapi.infrastructure.UserInfoRepository;
+import com.johncarlo.authapi.application.domain.MemberDetails;
+import com.johncarlo.authapi.application.entity.MemberInfo;
+import com.johncarlo.authapi.application.repository.MemberInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,16 +11,16 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class MemberUserDetailsService implements UserDetailsService {
+public class MemberDetailsService implements UserDetailsService {
 
-    private final UserInfoRepository userInfoRepository;
+    private final MemberInfoRepository memberInfoRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserInfo userInfo = userInfoRepository.findByUsername(username);
-        if (userInfo == null) {
+        MemberInfo memberInfo = memberInfoRepository.findByUsername(username);
+        if (memberInfo == null) {
             throw new UsernameNotFoundException("could not found user..!!");
         }
-        return new MemberUserDetails(userInfo);
+        return new MemberDetails(memberInfo);
     }
 }

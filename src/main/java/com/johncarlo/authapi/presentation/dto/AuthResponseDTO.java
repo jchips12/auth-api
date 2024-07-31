@@ -1,4 +1,4 @@
-package com.johncarlo.authapi.presentation;
+package com.johncarlo.authapi.presentation.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AuthRequestDTO {
+public class AuthResponseDTO {
+    private String accessToken;
 
-    private String username;
-    private String password;
 }
+

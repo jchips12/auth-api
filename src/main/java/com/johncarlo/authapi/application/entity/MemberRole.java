@@ -1,4 +1,4 @@
-package com.johncarlo.authapi.application;
+package com.johncarlo.authapi.application.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "roles")
-public class UserRole {
+public class MemberRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

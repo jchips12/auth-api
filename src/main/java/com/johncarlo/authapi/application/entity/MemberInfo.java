@@ -1,4 +1,4 @@
-package com.johncarlo.authapi.application;
+package com.johncarlo.authapi.application.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -7,7 +7,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
@@ -23,8 +22,8 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "users")
-public class UserInfo {
+@Entity(name = "members")
+public class MemberInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,10 +35,6 @@ public class UserInfo {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
-    )
-    private Set<UserRole> userRoles;
+    @JoinTable(name = "members_roles")
+    private Set<MemberRole> memberRoles;
 }
